@@ -254,11 +254,17 @@ get_sys_munmap: .globl get_sys_munmap  // r0= system call instruction
 #endif  /*}*/
         ret
 
+my_memcpy: .globl my_memcpy  // local C helper; preserve standard memcpy ABI
 memcpy: .globl memcpy  // void *memcpy(void *dst, void const *src, size_t len)
+        mov x4,x0  // retain the return value even for a zero-length copy
+        cbz x2,1f
+0:
         ldrb w3,[x1],#1
         strb w3,[x0],#1
         subs x2,x2,#1
-        bgt memcpy
+        b.ne 0b
+1:
+        mov x0,x4
         ret
 
 memset: .globl memset  // void *memset(void *dst, int c, size_t len);

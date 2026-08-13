@@ -1,0 +1,6 @@
+CUSTOM_UPX_ANDROID_1.0 {
+  global:
+    JNI_OnLoad;
+  local:
+    *;
+};

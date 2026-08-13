@@ -173,4 +173,4 @@ not_nrv2b:
   section LZMA_DAISY
     cmp meth,#M_LZMA; bne not_lzma
 #include "arch/arm64/v8/lzma_d.S"
-not_lzma:
+// lzma_d.S supplies not_lzma as the final daisy-chain fallback label.
